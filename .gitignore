@@ -1,4 +1,6 @@
+*.py[cod]
 ._*
 .env
+.idea
 shots
 venv
