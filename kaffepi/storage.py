@@ -9,6 +9,7 @@ def save_s3(
     bucket,
     key,
     latest_key=None,
+    latest_public=False,
 ):
     size = os.stat(source_path).st_size
     print('Uploading {size} bytes to s3://{bucket}/{key}'.format(
@@ -24,12 +25,15 @@ def save_s3(
     )
     if latest_key:
         print('Creating "latest" copy in S3.')
-        s3_client.copy_object(
+        copy_args = dict(
             Bucket=bucket,
             Key=latest_key,
             CopySource={'Bucket': bucket, 'Key': key},
             StorageClass='REDUCED_REDUNDANCY',
         )
+        if latest_public:
+            copy_args['ACL'] = 'public-read'
+        s3_client.copy_object(**copy_args)
 
 
 def generate_file_path(timestamp):

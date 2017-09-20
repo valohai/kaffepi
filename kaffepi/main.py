@@ -17,6 +17,8 @@ def main():
     ap.add_argument('--local-dir', '-d', default=cfg['OUTPUT_DIR'])
     ap.add_argument('--save-s3', '-3', default=False, action='store_true')
     ap.add_argument('--s3-bucket', '-b', default=cfg['S3_BUCKET'], action='store_true')
+    ap.add_argument('--s3-latest-key', default='latest.jpg')
+    ap.add_argument('--s3-latest-public', default=False, action='store_true')
     ap.add_argument('--width', '-w', type=int, default=1600)
     ap.add_argument('--height', '-h', type=int, default=1200)
     ap.add_argument('--quality', '-q', type=int, default=75)
@@ -43,7 +45,8 @@ def main():
             source_path=snapshot_image,
             bucket=args.s3_bucket,
             key=dest_rel_path,
-            latest_key='latest.jpg',
+            latest_key=args.s3_latest_key,
+            latest_public=args.s3_latest_public,
         )
 
     print('Done.')
