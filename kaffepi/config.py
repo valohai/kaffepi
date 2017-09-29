@@ -17,7 +17,7 @@ def get_config():
     return dict(
         OUTPUT_DIR=(
             os.environ.get('OUTPUT_DIR') or
-            os.path.realpath(os.path.join(os.path.dirname(__file__), 'shots'))
+            os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'shots'))
         ),
         RASPISTILL=os.environ.get('RASPISTILL', '/usr/bin/raspistill'),
         S3_BUCKET=os.environ.get('S3_BUCKET'),
